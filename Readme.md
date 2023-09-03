@@ -2,6 +2,9 @@
 
 O TaskFlow é uma aplicação web de gerenciamento de projetos e tarefas desenvolvida em Spring Boot com Java 17. Este sistema permite que você organize e acompanhe projetos, atribua tarefas a membros da equipe e mantenha um registro de comentários e discussões relacionados aos projetos e tarefas.
 
+## Diagrama de Classes
+![Diagrama de Classe](./img.png "Diagrama de Classe do Projeto")
+
 ## Funcionalidades Principais
 
 - **Projetos:** Crie projetos, defina datas de início e término, e adicione descrições detalhadas.
@@ -41,10 +44,6 @@ O aplicativo estará disponível em `http://localhost:8080`.
 ## Contribuindo
 
 Sinta-se à vontade para contribuir para este projeto. Se você encontrar problemas ou tiver sugestões de melhorias, crie uma [issue](https://github.com/seu-usuario/taskflow/issues) ou envie um pull request.
-
-## Licença
-
-Este projeto está sob a licença [Nome da Licença]. Consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
 
 ---
 
