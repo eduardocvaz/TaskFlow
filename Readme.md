@@ -18,19 +18,17 @@ O TaskFlow é uma aplicação web de gerenciamento de projetos e tarefas desenvo
 - **Spring Boot:** Framework Java para o desenvolvimento de aplicativos web.
 - **Spring Data JPA:** Facilita o acesso aos dados e a persistência.
 - **Spring Security:** Gerenciamento de autenticação e autorização.
-- **Thymeleaf:** Motor de templates para a criação das páginas web.
-- **Bootstrap:** Framework de design para uma interface de usuário responsiva.
-- **Banco de Dados:** Utilizamos [Nome do Banco de Dados] para armazenar os dados.
+- **Banco de Dados:** Utilizamos PostgreSQL para armazenar os dados.
 
 ## Requisitos de Instalação
 
 - [JDK 17](https://www.oracle.com/java/technologies/javase-downloads.html)
 - [Maven](https://maven.apache.org/download.cgi)
-- [Nome do Banco de Dados] (ex: MySQL, PostgreSQL) - Configure as propriedades de conexão em `src/main/resources/application.properties`.
+- PostgreSQL - Configure as propriedades de conexão em `src/main/resources/application.properties`.
 
 ## Como Executar
 
-1. Clone este repositório: `git clone https://github.com/seu-usuario/taskflow.git`
+1. Clone este repositório: `git clone https://github.com/eduardocvaz/taskflow.git`
 2. Navegue até o diretório do projeto: `cd taskflow`
 3. Compile o projeto: `mvn clean install`
 4. Execute o aplicativo: `mvn spring-boot:run`
@@ -43,7 +41,7 @@ O aplicativo estará disponível em `http://localhost:8080`.
 
 ## Contribuindo
 
-Sinta-se à vontade para contribuir para este projeto. Se você encontrar problemas ou tiver sugestões de melhorias, crie uma [issue](https://github.com/seu-usuario/taskflow/issues) ou envie um pull request.
+Sinta-se à vontade para contribuir para este projeto. Se você encontrar problemas ou tiver sugestões de melhorias, crie uma [issue](https://github.com/eduardocvaz/taskflow/issues) ou envie um pull request.
 
 ---
 
