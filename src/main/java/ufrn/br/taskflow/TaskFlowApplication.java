@@ -1,13 +1,54 @@
 package ufrn.br.taskflow;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import ufrn.br.taskflow.model.Funcao;
+import ufrn.br.taskflow.model.Usuario;
+import ufrn.br.taskflow.repository.FuncaoRepository;
+import ufrn.br.taskflow.repository.UsuarioRepository;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootApplication
-public class TaskFlowApplication {
+public class TaskFlowApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(TaskFlowApplication.class, args);
     }
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
+    FuncaoRepository funcaoRepository;
+
+    @Override
+    public void run(String... args) throws Exception {
+        Usuario usuario = new Usuario();
+        usuario.setNome("João");
+        usuarioRepository.save(usuario);
+
+
+        Funcao funcao1 = new Funcao();
+        funcao1.setNome("DEV-FRONT");
+        funcao1.setDescricao("Desenvolvedor Front-End");
+
+        Funcao funcao2 = new Funcao();
+        funcao2.setNome("DEV-BACK");
+        funcao2.setDescricao("Desenvolvedor Back-End");
+
+        funcao1.setUsuario(usuario);
+        funcao2.setUsuario(usuario);
+
+        funcaoRepository.save(funcao1);
+        funcaoRepository.save(funcao2);
+
+
+
+
+
+    }
 }
