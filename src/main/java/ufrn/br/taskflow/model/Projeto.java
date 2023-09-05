@@ -5,21 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ufrn.br.taskflow.core.BaseModel;
 
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "projeto_tbl")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Projeto {
-    @Id
-    @GeneratedValue
-    private Long id;
+@Table(name = "projeto")
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 
+public class Projeto extends BaseModel {
     @Column
     private String nome;
 
@@ -34,7 +30,7 @@ public class Projeto {
 
     @ManyToMany
     @JoinTable(
-            name = "projeto_equipe_tbl",
+            name = "projeto_equipe",
             joinColumns = {@JoinColumn(name = "projeto_id", referencedColumnName = "id") },
             inverseJoinColumns = {@JoinColumn(name = "equipe_id")})
     Set<Equipe> equipes;

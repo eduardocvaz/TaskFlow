@@ -6,20 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ufrn.br.taskflow.core.BaseModel;
 
 import java.util.Set;
 
 @Entity
-@Table(name = "usuario_tbl")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Usuario {
-    @Id
-    @GeneratedValue
-    private Long id;
+@Table(name = "usuario")
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 
+public class Usuario extends BaseModel {
     @Column
     private String nome;
 
@@ -55,5 +51,4 @@ public class Usuario {
             this.setEquipe(u.getEquipe());
         }
     }
-
 }

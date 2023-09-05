@@ -5,22 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-@Entity
-@Table(name = "equipe_tbl")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Equipe {
-    @Id
-    @GeneratedValue
-    private Long id;
+import ufrn.br.taskflow.core.BaseModel;
 
+@Entity
+@Table(name = "equipe")
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
+
+public class Equipe extends BaseModel {
     @Column
     private String nome;
 
     @Column
     private String descricao;
-
-
 }
