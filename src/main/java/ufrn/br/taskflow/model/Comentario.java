@@ -1,24 +1,16 @@
 package ufrn.br.taskflow.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import ufrn.br.taskflow.core.base.BaseModel;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "comentario_tbl")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Comentario {
-    @Id
-    @GeneratedValue
-    private Long id;
-
+@Table(name = "comentario")
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
+public class Comentario extends BaseModel {
     @Column
     private String texto;
 

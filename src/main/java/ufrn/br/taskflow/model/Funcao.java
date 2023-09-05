@@ -5,20 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
+import ufrn.br.taskflow.core.base.BaseModel;
 
 @Entity
-@Table(name = "funcao_tbl")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Funcao {
-    @Id
-    @GeneratedValue
-    private Long id;
+@Table(name = "funcao")
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 
+public class Funcao extends BaseModel {
     @Column
     private String nome;
 
