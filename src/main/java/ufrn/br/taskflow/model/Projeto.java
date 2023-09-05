@@ -38,4 +38,8 @@ public class Projeto {
             joinColumns = {@JoinColumn(name = "projeto_id", referencedColumnName = "id") },
             inverseJoinColumns = {@JoinColumn(name = "equipe_id")})
     Set<Equipe> equipes;
+
+    @OneToOne
+    @JoinColumn(name = "gerente_id")
+    private Usuario gerente;
 }
