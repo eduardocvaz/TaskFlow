@@ -1,7 +1,9 @@
 package ufrn.br.taskflow.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import ufrn.br.taskflow.core.base.BaseRepository;
 import ufrn.br.taskflow.model.Equipe;
 
-public interface EquipeRepository extends JpaRepository<Equipe, Long> {
+@Repository
+public interface EquipeRepository extends BaseRepository<Equipe> {
 }
