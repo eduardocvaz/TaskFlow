@@ -1,5 +1,6 @@
 package ufrn.br.taskflow;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
-public class TaskFlowApplication implements CommandLineRunner {
+public class TaskFlowApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TaskFlowApplication.class, args);
@@ -25,8 +26,8 @@ public class TaskFlowApplication implements CommandLineRunner {
     @Autowired
     FuncaoRepository funcaoRepository;
 
-    @Override
-    public void run(String... args) throws Exception {
+    @PostConstruct
+    public void started() {
         Usuario usuario = new Usuario();
         usuario.setNome("João");
         usuarioRepository.save(usuario);
@@ -45,10 +46,5 @@ public class TaskFlowApplication implements CommandLineRunner {
 
         funcaoRepository.save(funcao1);
         funcaoRepository.save(funcao2);
-
-
-
-
-
     }
 }
