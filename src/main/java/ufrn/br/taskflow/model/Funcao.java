@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ufrn.br.taskflow.core.BaseModel;
-
-import java.util.Set;
+import ufrn.br.taskflow.core.base.BaseModel;
 
 @Entity
 @Table(name = "funcao")

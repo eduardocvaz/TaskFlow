@@ -1,4 +1,4 @@
-package ufrn.br.taskflow.core;
+package ufrn.br.taskflow.core.base;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

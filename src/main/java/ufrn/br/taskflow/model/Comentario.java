@@ -2,7 +2,7 @@ package ufrn.br.taskflow.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ufrn.br.taskflow.core.BaseModel;
+import ufrn.br.taskflow.core.base.BaseModel;
 
 import java.util.Date;
 
