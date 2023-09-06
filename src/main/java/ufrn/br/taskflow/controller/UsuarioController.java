@@ -1,5 +1,6 @@
 package ufrn.br.taskflow.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,18 +13,15 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/usuarios")
+@RequiredArgsConstructor
 public class UsuarioController {
-    UsuarioService service;
 
-    @Autowired
-    public UsuarioController(UsuarioService service){
-        this.service = service;
-    }
+    private final UsuarioService service;
 
     @PostMapping
     public ResponseEntity<Usuario> create(@RequestBody Usuario u){
-        Usuario created = service.create(u);
+        Usuario created = service.insert(u);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -45,12 +43,12 @@ public class UsuarioController {
 
     @GetMapping
     public List<Usuario> listaAll(){
-        return service.listAll();
+        return service.findAll();
     }
 
     @GetMapping("{id}")
     public Usuario getById(@PathVariable Long id){
-        return service.getById(id);
+        return service.findById(id);
     }
 
     @DeleteMapping("{id}")
@@ -58,5 +56,4 @@ public class UsuarioController {
     public void delete(@PathVariable Long id){
         service.delete(id);
     }
-
 }
