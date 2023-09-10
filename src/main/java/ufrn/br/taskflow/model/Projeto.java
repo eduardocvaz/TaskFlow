@@ -1,6 +1,9 @@
 package ufrn.br.taskflow.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +20,7 @@ import java.util.Set;
 
 public class Projeto extends BaseModel {
     @Column
+    @NotBlank(message = "O campo 'Nome' da entidade Projeto não pode ser vazio")
     private String nome;
 
     @Column
@@ -26,6 +30,7 @@ public class Projeto extends BaseModel {
     private Date dataTerminoPrevista;
 
     @Column
+    @Size(max = 200, message = "O campo 'descricao' da entidade Projeto deve ter no máximo 200 caracteres")
     private String descricao;
 
     @ManyToMany

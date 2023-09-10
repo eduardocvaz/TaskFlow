@@ -1,10 +1,12 @@
 package ufrn.br.taskflow;
 
 import jakarta.annotation.PostConstruct;
+import org.aspectj.apache.bcel.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import ufrn.br.taskflow.model.Funcao;
 import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.repository.FuncaoRepository;
@@ -26,10 +28,12 @@ public class TaskFlowApplication {
     @Autowired
     FuncaoRepository funcaoRepository;
 
+
     @PostConstruct
     public void started() {
         Usuario usuario = new Usuario();
         usuario.setNome("João");
+        usuario.setSenha("12345");
         usuarioRepository.save(usuario);
 
 

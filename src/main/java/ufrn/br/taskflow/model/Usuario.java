@@ -2,6 +2,7 @@ package ufrn.br.taskflow.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,13 +16,15 @@ import ufrn.br.taskflow.core.base.BaseModel;
 
 public class Usuario extends BaseModel {
     @Column
+    @NotBlank(message = "O campo 'Nome' da entidade Usuario não pode ser vazio")
     private String nome;
 
-    @Email
     @Column
+    @Email
     private String email;
 
     @Column
+    @NotBlank(message = "O campo 'Senha' da entidade Usuario não pode ser vazio")
     private String senha;
 
     @ManyToOne
