@@ -2,6 +2,7 @@ package ufrn.br.taskflow;
 
 import jakarta.annotation.PostConstruct;
 import org.aspectj.apache.bcel.Repository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import ufrn.br.taskflow.model.Funcao;
 import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.repository.FuncaoRepository;
+import ufrn.br.taskflow.repository.TarefaRepository;
 import ufrn.br.taskflow.repository.UsuarioRepository;
 
 import java.util.HashSet;
@@ -17,6 +19,11 @@ import java.util.Set;
 
 @SpringBootApplication
 public class TaskFlowApplication {
+
+    @Bean
+    public ModelMapper mapper(){
+        return new ModelMapper();
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(TaskFlowApplication.class, args);
@@ -27,6 +34,9 @@ public class TaskFlowApplication {
 
     @Autowired
     FuncaoRepository funcaoRepository;
+
+    @Autowired
+    TarefaRepository tarefaRepository;
 
 
     @PostConstruct

@@ -1,6 +1,7 @@
 package ufrn.br.taskflow.dto;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ufrn.br.taskflow.model.Usuario;
 
@@ -8,6 +9,7 @@ import ufrn.br.taskflow.model.Usuario;
 public class UsuarioMapper {
     ModelMapper mapper;
 
+    @Autowired
     public UsuarioMapper(ModelMapper mapper){
         this.mapper = mapper;
     }
