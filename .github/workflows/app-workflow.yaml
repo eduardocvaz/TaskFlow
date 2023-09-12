@@ -11,13 +11,13 @@ on:
       - 'src/**'
       - '.github/workflows/app-workflow.yaml'
 jobs:
- build:
- steps:
- - checkout
- - run: mvn clean package
- - run: echo "BUILD OK"
-test:
- steps:
- - checkout
- - run: mvn test
- - run: echo "TEST OK"
+  build:
+    steps:
+      - checkout
+      - run: mvn clean package
+      - run: echo "BUILD OK"
+  test:
+    steps:
+      - checkout
+      - run: mvn test
+      - run: echo "TEST OK"
