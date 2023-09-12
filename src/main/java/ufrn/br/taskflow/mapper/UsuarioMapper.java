@@ -10,7 +10,7 @@ import ufrn.br.taskflow.model.Usuario;
 @Component
 @AllArgsConstructor
 public class UsuarioMapper {
-    public final ModelMapper mapper;
+    private final ModelMapper mapper;
 
     /**
      * Converte um UsuarioRequestDTO em Usuario

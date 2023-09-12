@@ -10,7 +10,7 @@ import ufrn.br.taskflow.model.Projeto;
 @Component
 @AllArgsConstructor
 public class ProjetoMapper {
-    public final ModelMapper mapper;
+    private final ModelMapper mapper;
 
     /**
      * Converte um ProjetoRequestDTO em Projeto

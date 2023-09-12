@@ -10,7 +10,7 @@ import ufrn.br.taskflow.model.Tarefa;
 @Component
 @AllArgsConstructor
 public class TarefaMapper {
-    public final ModelMapper mapper;
+    private final ModelMapper mapper;
 
     /**
      * Converte um TarefaRequestDTO em Tarefa

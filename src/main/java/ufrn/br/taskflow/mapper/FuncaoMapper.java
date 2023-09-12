@@ -10,7 +10,7 @@ import ufrn.br.taskflow.model.Funcao;
 @Component
 @AllArgsConstructor
 public class FuncaoMapper {
-    public final ModelMapper mapper;
+    private final ModelMapper mapper;
 
     /**
      * Converte um FuncaoRequestDTO em Funcao
