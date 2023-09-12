@@ -1,4 +1,4 @@
-package ufrn.br.taskflow.errorhandling;
+package ufrn.br.taskflow.core.erro;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;

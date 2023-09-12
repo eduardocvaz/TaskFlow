@@ -1,18 +1,16 @@
-package ufrn.br.taskflow.dto;
+package ufrn.br.taskflow.mapper;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ufrn.br.taskflow.dto.TarefaRequestDTO;
+import ufrn.br.taskflow.dto.TarefaResponseDTO;
 import ufrn.br.taskflow.model.Tarefa;
 
 @Component
+@AllArgsConstructor
 public class TarefaMapper {
-    ModelMapper mapper;
-
-    @Autowired
-    public TarefaMapper(ModelMapper mapper){
-        this.mapper = mapper;
-    }
+    public final ModelMapper mapper;
 
     /**
      * Converte um TarefaRequestDTO em Tarefa

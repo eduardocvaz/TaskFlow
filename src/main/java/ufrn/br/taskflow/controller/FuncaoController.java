@@ -1,16 +1,14 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
+import ufrn.br.taskflow.mapper.FuncaoMapper;
 import ufrn.br.taskflow.model.Funcao;
-import ufrn.br.taskflow.model.Projeto;
 import ufrn.br.taskflow.service.FuncaoService;
-import ufrn.br.taskflow.service.ProjetoService;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -20,15 +18,10 @@ import java.util.List;
 @RequestMapping("/funcoes")
 @RequiredArgsConstructor
 public class FuncaoController {
-    private FuncaoService service;
 
-    private FuncaoMapper mapper;
+    private final FuncaoService service;
 
-    @Autowired
-    public FuncaoController(FuncaoService service, FuncaoMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
-    }
+    private final FuncaoMapper mapper;
 
     @PostMapping
     public ResponseEntity<FuncaoResponseDTO> create(@RequestBody FuncaoRequestDTO dto){

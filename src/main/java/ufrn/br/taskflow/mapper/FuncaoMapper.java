@@ -1,18 +1,16 @@
-package ufrn.br.taskflow.dto;
+package ufrn.br.taskflow.mapper;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ufrn.br.taskflow.dto.FuncaoRequestDTO;
+import ufrn.br.taskflow.dto.FuncaoResponseDTO;
 import ufrn.br.taskflow.model.Funcao;
 
 @Component
+@AllArgsConstructor
 public class FuncaoMapper {
-    ModelMapper mapper;
-
-    @Autowired
-    public FuncaoMapper(ModelMapper mapper){
-        this.mapper = mapper;
-    }
+    public final ModelMapper mapper;
 
     /**
      * Converte um FuncaoRequestDTO em Funcao

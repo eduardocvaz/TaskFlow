@@ -1,12 +1,12 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
+import ufrn.br.taskflow.mapper.ProjetoMapper;
 import ufrn.br.taskflow.model.Projeto;
 import ufrn.br.taskflow.service.ProjetoService;
 
@@ -19,15 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjetoController {
 
-    private ProjetoService service;
+    private final ProjetoService service;
 
-    private ProjetoMapper mapper;
-
-    @Autowired
-    public ProjetoController(ProjetoService service, ProjetoMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
-    }
+    private final ProjetoMapper mapper;
 
     @PostMapping
     public ResponseEntity<ProjetoResponseDTO> create(@RequestBody ProjetoRequestDTO dto){

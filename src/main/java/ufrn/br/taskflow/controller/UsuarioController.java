@@ -1,12 +1,11 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ufrn.br.taskflow.dto.UsuarioMapper;
+import ufrn.br.taskflow.mapper.UsuarioMapper;
 import ufrn.br.taskflow.dto.UsuarioRequestDTO;
 import ufrn.br.taskflow.dto.UsuarioResponseDTO;
 import ufrn.br.taskflow.model.Usuario;
@@ -20,16 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioController {
 
+    private final UsuarioService service;
 
-    private UsuarioService service;
-
-    private UsuarioMapper mapper;
-
-    @Autowired
-    public UsuarioController(UsuarioService service, UsuarioMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
-    }
+    private final UsuarioMapper mapper;
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDTO> create(@RequestBody UsuarioRequestDTO dto){
