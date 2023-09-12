@@ -1,10 +1,8 @@
 package ufrn.br.taskflow.core.base;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
-import ufrn.br.taskflow.model.Usuario;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -14,6 +12,7 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
 
     @Autowired
     protected Repository repository;
+
 
     @SuppressWarnings("unchecked")
     protected Class<Model> getPersistentClass(){
@@ -32,7 +31,14 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
      * @param id Id do objeto
      */
     public Model findById(Long id) {
-        return repository.findById(id).orElse(null);
+        Optional<Model> modelDb = repository.findById(id);
+
+        if(modelDb.isPresent()){
+            return modelDb.get();
+        } else {
+            throw new EntityNotFoundException("Não encontrado!");
+        }
+
     }
 
     /**
@@ -57,7 +63,7 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
         if (modelDb.isPresent()) {
             return repository.save(model);
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado");
+            throw new EntityNotFoundException("Não encontrado!");
         }
     }
 
@@ -67,12 +73,12 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
      */
     @Transactional
     public void delete(Long id) {
-        Optional<Model> model = repository.findById(id);
+        Optional<Model> modelDb = repository.findById(id);
 
-        if (model.isPresent()) {
+        if (modelDb.isPresent()) {
             repository.deleteById(id);
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado");
+            throw new EntityNotFoundException("Não encontrado!");
         }
     }
 }

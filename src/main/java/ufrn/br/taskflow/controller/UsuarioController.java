@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ufrn.br.taskflow.dto.UsuarioMapper;
+import ufrn.br.taskflow.dto.UsuarioRequestDTO;
+import ufrn.br.taskflow.dto.UsuarioResponseDTO;
 import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.service.UsuarioService;
 
@@ -17,18 +20,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioController {
 
-    private final UsuarioService service;
+
+    private UsuarioService service;
+
+    private UsuarioMapper mapper;
+
+    @Autowired
+    public UsuarioController(UsuarioService service, UsuarioMapper mapper) {
+        this.service = service;
+        this.mapper = mapper;
+    }
 
     @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario u){
-        Usuario created = service.insert(u);
+    public ResponseEntity<UsuarioResponseDTO> create(@RequestBody UsuarioRequestDTO dto){
+        Usuario usuario = mapper.toUsuario(dto);
+        Usuario created = service.insert(usuario);
+
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(created);
+        UsuarioResponseDTO responseDTO = mapper.toUsuarioResponseDTO(created);
+        return ResponseEntity.created(location).body(responseDTO);
     }
 
     @PutMapping

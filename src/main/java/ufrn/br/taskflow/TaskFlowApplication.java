@@ -1,13 +1,17 @@
 package ufrn.br.taskflow;
 
 import jakarta.annotation.PostConstruct;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import ufrn.br.taskflow.model.Funcao;
+import ufrn.br.taskflow.model.Tarefa;
 import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.repository.FuncaoRepository;
+import ufrn.br.taskflow.repository.ProjetoRepository;
+import ufrn.br.taskflow.repository.TarefaRepository;
 import ufrn.br.taskflow.repository.UsuarioRepository;
 
 import java.util.HashSet;
@@ -15,6 +19,11 @@ import java.util.Set;
 
 @SpringBootApplication
 public class TaskFlowApplication {
+
+    @Bean
+    public ModelMapper mapper(){
+        return new ModelMapper();
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(TaskFlowApplication.class, args);
@@ -26,10 +35,18 @@ public class TaskFlowApplication {
     @Autowired
     FuncaoRepository funcaoRepository;
 
+    @Autowired
+    TarefaRepository tarefaRepository;
+
+    @Autowired
+    ProjetoRepository projetoRepository;
+
+
     @PostConstruct
     public void started() {
         Usuario usuario = new Usuario();
         usuario.setNome("João");
+        usuario.setSenha("12345");
         usuarioRepository.save(usuario);
 
 
@@ -46,5 +63,10 @@ public class TaskFlowApplication {
 
         funcaoRepository.save(funcao1);
         funcaoRepository.save(funcao2);
+
+        Tarefa tarefa1 = new Tarefa();
+        tarefa1.setNome("Fazer front-end do projeto");
+        tarefa1.setDescricao("Implementar o front-end utilizando Angular");
+        tarefaRepository.save(tarefa1);
     }
 }
