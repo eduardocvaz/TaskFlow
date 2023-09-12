@@ -43,4 +43,25 @@ public class Projeto extends BaseModel {
     @OneToOne
     @JoinColumn(name = "gerente_id")
     private Usuario gerente;
+
+    public void partialUpdate(Projeto p) {
+        if(p.getNome() != null){
+            this.setNome(p.getNome());
+        }
+        if(p.getDescricao() != null){
+            this.setDescricao(p.getDescricao());
+        }
+        if(p.getDataInicio() != null){
+            this.setDataInicio(p.getDataInicio());
+        }
+        if(p.getDataTerminoPrevista() != null){
+            this.setDataTerminoPrevista(p.getDataTerminoPrevista());
+        }
+        if(p.getGerente() != null){
+            this.setGerente(p.getGerente());
+        }
+        if(p.getEquipes() != null){
+            this.setEquipes(p.getEquipes());
+        }
+    }
 }

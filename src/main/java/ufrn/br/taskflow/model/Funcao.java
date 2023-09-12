@@ -27,4 +27,17 @@ public class Funcao extends BaseModel {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    public void partialUpdate(Funcao f) {
+        if(f.getNome() != null){
+            this.setNome(f.getNome());
+        }
+        if(f.getDescricao() != null){
+            this.setDescricao(f.getDescricao());
+        }
+        if(f.getUsuario() != null){
+            this.setUsuario(f.getUsuario());
+        }
+
+    }
+
 }

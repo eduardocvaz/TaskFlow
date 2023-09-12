@@ -17,7 +17,7 @@ public class TarefaMapper {
     /**
      * Converte um TarefaRequestDTO em Tarefa
      * @param dto
-     * @return usuario
+     * @return tarefa
      */
     public Tarefa toTarefa(TarefaRequestDTO dto){
         Tarefa tarefa = mapper.map(dto, Tarefa.class);

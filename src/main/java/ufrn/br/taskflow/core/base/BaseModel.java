@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @MappedSuperclass
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+// Adicionar uma variavel ou algo para substituir pessoa_tbl
 @SQLDelete(sql = "UPDATE pessoa_tbl SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
 @Where(clause = "deleted_at is null")
 public class BaseModel implements Serializable {

@@ -3,9 +3,6 @@ package ufrn.br.taskflow.core.base;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
-import ufrn.br.taskflow.model.Usuario;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;

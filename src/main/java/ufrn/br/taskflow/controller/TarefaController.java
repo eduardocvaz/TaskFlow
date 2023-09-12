@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.model.Tarefa;
-import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.service.TarefaService;
-import ufrn.br.taskflow.service.UsuarioService;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -54,8 +53,13 @@ public class TarefaController {
     }
 
     @GetMapping
-    public List<Tarefa> listaAll(){
-        return service.findAll();
+    public List<TarefaResponseDTO> listaAll(){
+        List<TarefaResponseDTO> tarefas = new ArrayList<>();
+        for (Tarefa tarefa : service.findAll()) {
+            tarefas.add(mapper.toTarefaResponseDTO(tarefa));
+        }
+
+        return tarefas;
     }
 
     @GetMapping("{id}")

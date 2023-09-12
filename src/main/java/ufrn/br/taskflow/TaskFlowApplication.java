@@ -1,16 +1,16 @@
 package ufrn.br.taskflow;
 
 import jakarta.annotation.PostConstruct;
-import org.aspectj.apache.bcel.Repository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import ufrn.br.taskflow.model.Funcao;
+import ufrn.br.taskflow.model.Tarefa;
 import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.repository.FuncaoRepository;
+import ufrn.br.taskflow.repository.ProjetoRepository;
 import ufrn.br.taskflow.repository.TarefaRepository;
 import ufrn.br.taskflow.repository.UsuarioRepository;
 
@@ -38,6 +38,9 @@ public class TaskFlowApplication {
     @Autowired
     TarefaRepository tarefaRepository;
 
+    @Autowired
+    ProjetoRepository projetoRepository;
+
 
     @PostConstruct
     public void started() {
@@ -60,5 +63,10 @@ public class TaskFlowApplication {
 
         funcaoRepository.save(funcao1);
         funcaoRepository.save(funcao2);
+
+        Tarefa tarefa1 = new Tarefa();
+        tarefa1.setNome("Fazer front-end do projeto");
+        tarefa1.setDescricao("Implementar o front-end utilizando Angular");
+        tarefaRepository.save(tarefa1);
     }
 }

@@ -20,7 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioController {
 
+
     private UsuarioService service;
+
     private UsuarioMapper mapper;
 
     @Autowired
