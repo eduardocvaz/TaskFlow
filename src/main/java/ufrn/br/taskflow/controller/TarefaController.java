@@ -1,12 +1,12 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
+import ufrn.br.taskflow.mapper.TarefaMapper;
 import ufrn.br.taskflow.model.Tarefa;
 import ufrn.br.taskflow.service.TarefaService;
 
@@ -18,14 +18,8 @@ import java.util.List;
 @RequestMapping("/tarefas")
 @RequiredArgsConstructor
 public class TarefaController {
-    private TarefaService service;
-    private TarefaMapper mapper;
-
-    @Autowired
-    public TarefaController(TarefaService service, TarefaMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
-    }
+    private final TarefaService service;
+    private final TarefaMapper mapper;
 
     @PostMapping
     public ResponseEntity<TarefaResponseDTO> create(@RequestBody TarefaRequestDTO dto){

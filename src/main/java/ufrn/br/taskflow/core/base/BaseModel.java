@@ -1,5 +1,6 @@
 package ufrn.br.taskflow.core.base;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,12 +32,15 @@ public class BaseModel implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     protected Long id;
 
+
+    @JsonIgnore
     LocalDateTime deletedAt;
 
+    @JsonIgnore
     @UpdateTimestamp
     LocalDateTime updatedAt;
 
+    @JsonIgnore
     @CreationTimestamp
     LocalDateTime createdAt;
-
 }

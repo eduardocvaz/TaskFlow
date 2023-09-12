@@ -1,18 +1,16 @@
-package ufrn.br.taskflow.dto;
+package ufrn.br.taskflow.mapper;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ufrn.br.taskflow.dto.ProjetoRequestDTO;
+import ufrn.br.taskflow.dto.ProjetoResponseDTO;
 import ufrn.br.taskflow.model.Projeto;
 
 @Component
+@AllArgsConstructor
 public class ProjetoMapper {
-    ModelMapper mapper;
-
-    @Autowired
-    public ProjetoMapper(ModelMapper mapper){
-        this.mapper = mapper;
-    }
+    private final ModelMapper mapper;
 
     /**
      * Converte um ProjetoRequestDTO em Projeto

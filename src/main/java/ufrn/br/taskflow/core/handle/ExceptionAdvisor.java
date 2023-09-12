@@ -1,4 +1,4 @@
-package ufrn.br.taskflow.errorhandling;
+package ufrn.br.taskflow.core.handle;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -14,7 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class ControllerAdvisor extends ResponseStatusExceptionHandler {
+public class ExceptionAdvisor extends ResponseStatusExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e) {

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import java.util.Optional;
 
 public abstract class BaseService <Model extends BaseModel, Repository extends BaseRepository<Model>> {
 
@@ -31,14 +30,8 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
      * @param id Id do objeto
      */
     public Model findById(Long id) {
-        Optional<Model> modelDb = repository.findById(id);
-
-        if(modelDb.isPresent()){
-            return modelDb.get();
-        } else {
-            throw new EntityNotFoundException("Não encontrado!");
-        }
-
+        Model model = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Não encontrado!"));
+        return model;
     }
 
     /**
@@ -58,13 +51,8 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
      */
     @Transactional
     public Model update(Model model) {
-        Optional<Model> modelDb = repository.findById(model.getId());
-
-        if (modelDb.isPresent()) {
-            return repository.save(model);
-        } else {
-            throw new EntityNotFoundException("Não encontrado!");
-        }
+        repository.findById(model.getId()).orElseThrow(() -> new EntityNotFoundException("Não encontrado!"));
+        return repository.save(model);
     }
 
     /**
@@ -73,12 +61,7 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
      */
     @Transactional
     public void delete(Long id) {
-        Optional<Model> modelDb = repository.findById(id);
-
-        if (modelDb.isPresent()) {
-            repository.deleteById(id);
-        } else {
-            throw new EntityNotFoundException("Não encontrado!");
-        }
+        repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Não encontrado!"));
+        repository.deleteById(id);
     }
 }
