@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjetoController {
 
-    private final ProjetoService serviceTeste;
+    private final ProjetoService service;
 
     private final ProjetoMapper mapper;
 
