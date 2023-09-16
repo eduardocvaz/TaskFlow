@@ -1,6 +1,7 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class ProjetoController {
     }
 
     @GetMapping
-    public List<ProjetoResponseDTO> listaAll(){
+    public List<ProjetoResponseDTO> listaAll(Pageable pageable){
         List<ProjetoResponseDTO> projetos = new ArrayList<>();
 
         for (Projeto projeto : service.findAll()) {

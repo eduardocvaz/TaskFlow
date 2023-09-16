@@ -1,6 +1,9 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,18 +50,21 @@ public class TarefaController {
     }
 
     @GetMapping
-    public List<TarefaResponseDTO> listaAll(){
+    public List<TarefaResponseDTO> listaAll(Pageable pageable){
         List<TarefaResponseDTO> tarefas = new ArrayList<>();
         for (Tarefa tarefa : service.findAll()) {
             tarefas.add(mapper.toTarefaResponseDTO(tarefa));
+
         }
 
         return tarefas;
     }
 
     @GetMapping("{id}")
-    public Tarefa getById(@PathVariable Long id){
-        return service.findById(id);
+    public TarefaResponseDTO getById(@PathVariable Long id){
+        Tarefa tarefaBuscada = service.findById(id);
+        TarefaResponseDTO tarefaResponseDTO = mapper.toTarefaResponseDTO(tarefaBuscada);
+        return tarefaResponseDTO;
     }
 
     @DeleteMapping("{id}")

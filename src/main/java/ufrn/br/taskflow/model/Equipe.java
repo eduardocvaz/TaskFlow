@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ufrn.br.taskflow.core.base.BaseModel;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "equipe")
 @Getter @Setter
@@ -22,4 +24,24 @@ public class Equipe extends BaseModel {
     @Column
     @Size(max = 100, message = "O campo 'descricao' da entidade Funcao deve ter no máximo 100 caracteres")
     private String descricao;
+
+    @ManyToMany
+    @JoinTable(
+            name = "equipe_usuario",
+            joinColumns = {@JoinColumn(name = "equipe_id", referencedColumnName = "id") },
+            inverseJoinColumns = {@JoinColumn(name = "usuario_id")})
+    Set<Usuario> membros;
+
+    public void partialUpdate(Equipe e) {
+        if(e.getNome() != null){
+            this.setNome(e.getNome());
+        }
+        if(e.getDescricao() != null){
+            this.setDescricao(e.getDescricao());
+        }
+        if(e.getMembros() != null){
+            this.setMembros(e.getMembros());
+        }
+    }
+
 }

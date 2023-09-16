@@ -1,6 +1,7 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class FuncaoController {
     }
 
     @GetMapping
-    public List<FuncaoResponseDTO> listaAll(){
+    public List<FuncaoResponseDTO> listaAll(Pageable pageable){
         List<FuncaoResponseDTO> funcoes = new ArrayList<>();
 
         for (Funcao funcao : service.findAll()) {

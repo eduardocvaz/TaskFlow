@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import ufrn.br.taskflow.core.base.BaseModel;
 
 @Entity
@@ -16,6 +14,10 @@ public class Usuario extends BaseModel {
     @Column
     @NotBlank(message = "O campo 'Nome' da entidade Usuario não pode ser vazio")
     private String nome;
+
+    @Column
+    @NotBlank(message = "O campo 'Sobrenome' da entidade Usuario não pode ser vazio")
+    private String sobrenome;
 
     @Column
     @Email
@@ -36,6 +38,9 @@ public class Usuario extends BaseModel {
     public void partialUpdate(Usuario u) {
         if(u.getNome() != null){
             this.setNome(u.getNome());
+        }
+        if(u.getSobrenome() != null){
+            this.setSobrenome(u.getSobrenome());
         }
         if(u.getEmail() != null){
             this.setEmail(u.getEmail());
