@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.FuncaoMapper;
 import ufrn.br.taskflow.model.Funcao;
+import ufrn.br.taskflow.model.Projeto;
 import ufrn.br.taskflow.service.FuncaoService;
 
 import java.net.URI;
@@ -40,8 +41,9 @@ public class FuncaoController {
     }
 
     @PutMapping
-    public Funcao update(@RequestBody Funcao f){
-        return service.update(f);
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Funcao f){
+        service.update(f);
     }
 
     @PatchMapping

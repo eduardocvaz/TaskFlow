@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.TarefaMapper;
 import ufrn.br.taskflow.model.Tarefa;
+import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.service.TarefaService;
 
 import java.net.URI;
@@ -40,8 +41,9 @@ public class TarefaController {
     }
 
     @PutMapping
-    public Tarefa update(@RequestBody Tarefa t){
-        return service.update(t);
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Tarefa t){
+        service.update(t);
     }
 
     @PatchMapping
@@ -50,15 +52,26 @@ public class TarefaController {
     }
 
     @GetMapping
-    public List<TarefaResponseDTO> listaAll(Pageable pageable){
+    public List<TarefaResponseDTO> listaAll(){
         List<TarefaResponseDTO> tarefas = new ArrayList<>();
         for (Tarefa tarefa : service.findAll()) {
             tarefas.add(mapper.toTarefaResponseDTO(tarefa));
-
         }
-
         return tarefas;
     }
+
+    /*
+    @GetMapping
+    public Page<TarefaResponseDTO> listAll(@RequestBody Pageable pageable){
+        List<TarefaResponseDTO> tarefas = new ArrayList<>();
+        for(Tarefa tarefa : service.findAll(pageable)){
+            tarefas.add(mapper.toTarefaResponseDTO(tarefa));
+        }
+        Page<TarefaResponseDTO> tarefasDto = new PageImpl<>(tarefas, pageable, tarefas.size());
+        return tarefasDto;
+    }
+    */
+    
 
     @GetMapping("{id}")
     public TarefaResponseDTO getById(@PathVariable Long id){

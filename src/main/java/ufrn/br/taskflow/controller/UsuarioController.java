@@ -41,8 +41,9 @@ public class UsuarioController {
     }
 
     @PutMapping
-    public Usuario update(@RequestBody Usuario u){
-        return service.update(u);
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Usuario u){
+        service.update(u);
     }
 
     @PatchMapping

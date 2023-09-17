@@ -10,6 +10,7 @@ import ufrn.br.taskflow.dto.EquipeRequestDTO;
 import ufrn.br.taskflow.dto.EquipeResponseDTO;
 import ufrn.br.taskflow.mapper.EquipeMapper;
 import ufrn.br.taskflow.model.Equipe;
+import ufrn.br.taskflow.model.Funcao;
 import ufrn.br.taskflow.service.EquipeService;
 
 import java.net.URI;
@@ -40,8 +41,9 @@ public class EquipeController {
     }
 
     @PutMapping
-    public Equipe update(@RequestBody Equipe e){
-        return service.update(e);
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Equipe e){
+        service.update(e);
     }
 
     @PatchMapping

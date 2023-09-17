@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.ProjetoMapper;
 import ufrn.br.taskflow.model.Projeto;
+import ufrn.br.taskflow.model.Tarefa;
 import ufrn.br.taskflow.service.ProjetoService;
 
 import java.net.URI;
@@ -40,8 +41,9 @@ public class ProjetoController {
     }
 
     @PutMapping
-    public Projeto update(@RequestBody Projeto p){
-        return service.update(p);
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Projeto p){
+        service.update(p);
     }
 
     @PatchMapping

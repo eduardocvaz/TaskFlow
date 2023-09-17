@@ -10,6 +10,7 @@ import ufrn.br.taskflow.dto.ComentarioRequestDTO;
 import ufrn.br.taskflow.dto.ComentarioResponseDTO;
 import ufrn.br.taskflow.mapper.ComentarioMapper;
 import ufrn.br.taskflow.model.Comentario;
+import ufrn.br.taskflow.model.Equipe;
 import ufrn.br.taskflow.service.ComentarioService;
 
 import java.net.URI;
@@ -40,8 +41,9 @@ public class ComentarioController {
     }
 
     @PutMapping
-    public Comentario update(@RequestBody Comentario c){
-        return service.update(c);
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Comentario c){
+        service.update(c);
     }
 
     @PatchMapping
