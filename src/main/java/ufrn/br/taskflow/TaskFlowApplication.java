@@ -5,7 +5,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import ufrn.br.taskflow.core.config.RsaKeyProperties;
 import ufrn.br.taskflow.model.Funcao;
 import ufrn.br.taskflow.model.Tarefa;
 import ufrn.br.taskflow.model.Usuario;
@@ -14,10 +16,8 @@ import ufrn.br.taskflow.repository.ProjetoRepository;
 import ufrn.br.taskflow.repository.TarefaRepository;
 import ufrn.br.taskflow.repository.UsuarioRepository;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @SpringBootApplication
+@EnableConfigurationProperties(RsaKeyProperties.class)
 public class TaskFlowApplication {
 
     @Bean
@@ -46,6 +46,7 @@ public class TaskFlowApplication {
     public void started() {
         Usuario usuario = new Usuario();
         usuario.setNome("João");
+        usuario.setSobrenome("Silva");
         usuario.setSenha("12345");
         usuarioRepository.save(usuario);
 

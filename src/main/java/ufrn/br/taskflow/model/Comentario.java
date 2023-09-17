@@ -28,4 +28,20 @@ public class Comentario extends BaseModel {
     @ManyToOne
     @JoinColumn(name = "tarefa_id")
     private Tarefa tarefa;
+
+    public void partialUpdate(Comentario c) {
+        if(c.getTexto() != null){
+            this.setTexto(c.getTexto());
+        }
+        if(c.getDataCriacao() != null){
+            this.setDataCriacao(c.getDataCriacao());
+        }
+        if(c.getUsuario() != null){
+            this.setUsuario(c.getUsuario());
+        }
+        if(c.getTarefa() != null){
+            this.setTarefa(c.getTarefa());
+        }
+    }
+
 }

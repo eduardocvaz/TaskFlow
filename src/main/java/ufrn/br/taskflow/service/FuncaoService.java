@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ufrn.br.taskflow.core.base.BaseService;
 import ufrn.br.taskflow.model.Funcao;
-import ufrn.br.taskflow.model.Projeto;
 import ufrn.br.taskflow.repository.FuncaoRepository;
 
 import java.util.Optional;

@@ -1,6 +1,8 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +41,9 @@ public class UsuarioController {
     }
 
     @PutMapping
-    public Usuario update(@RequestBody Usuario u){
-        return service.update(u);
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Usuario u){
+        service.update(u);
     }
 
     @PatchMapping
@@ -49,8 +52,8 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> listaAll(){
-        return service.findAll();
+    public Page<Usuario> listaAll(Pageable pageable){
+        return service.findAll(pageable);
     }
 
     @GetMapping("{id}")

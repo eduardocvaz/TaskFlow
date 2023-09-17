@@ -3,6 +3,11 @@ package ufrn.br.taskflow.core.base;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -23,6 +28,14 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
      */
     public List<Model> findAll() {
         return repository.findAll();
+    }
+
+
+    /**
+     * Retorna lista de objetos de forma paginada
+     */
+    public Page<Model> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     /**

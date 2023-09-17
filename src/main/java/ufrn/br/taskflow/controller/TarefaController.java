@@ -1,6 +1,9 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.TarefaMapper;
 import ufrn.br.taskflow.model.Tarefa;
+import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.service.TarefaService;
 
 import java.net.URI;
@@ -37,8 +41,9 @@ public class TarefaController {
     }
 
     @PutMapping
-    public Tarefa update(@RequestBody Tarefa t){
-        return service.update(t);
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Tarefa t){
+        service.update(t);
     }
 
     @PatchMapping
@@ -52,13 +57,27 @@ public class TarefaController {
         for (Tarefa tarefa : service.findAll()) {
             tarefas.add(mapper.toTarefaResponseDTO(tarefa));
         }
-
         return tarefas;
     }
 
+    /*
+    @GetMapping
+    public Page<TarefaResponseDTO> listAll(@RequestBody Pageable pageable){
+        List<TarefaResponseDTO> tarefas = new ArrayList<>();
+        for(Tarefa tarefa : service.findAll(pageable)){
+            tarefas.add(mapper.toTarefaResponseDTO(tarefa));
+        }
+        Page<TarefaResponseDTO> tarefasDto = new PageImpl<>(tarefas, pageable, tarefas.size());
+        return tarefasDto;
+    }
+    */
+    
+
     @GetMapping("{id}")
-    public Tarefa getById(@PathVariable Long id){
-        return service.findById(id);
+    public TarefaResponseDTO getById(@PathVariable Long id){
+        Tarefa tarefaBuscada = service.findById(id);
+        TarefaResponseDTO tarefaResponseDTO = mapper.toTarefaResponseDTO(tarefaBuscada);
+        return tarefaResponseDTO;
     }
 
     @DeleteMapping("{id}")

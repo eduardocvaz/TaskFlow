@@ -1,10 +1,12 @@
 package ufrn.br.taskflow.dto;
 
-
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class FuncaoRequestDTO {
+@NoArgsConstructor
+public class EquipeResponseDTO {
+    private Long id;
     private String nome;
     private String descricao;
 }
