@@ -1,6 +1,7 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,9 @@ import ufrn.br.taskflow.dto.ComentarioRequestDTO;
 import ufrn.br.taskflow.dto.ComentarioResponseDTO;
 import ufrn.br.taskflow.mapper.ComentarioMapper;
 import ufrn.br.taskflow.model.Comentario;
-import ufrn.br.taskflow.model.Equipe;
 import ufrn.br.taskflow.service.ComentarioService;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/comentarios")
@@ -52,14 +50,9 @@ public class ComentarioController {
     }
 
     @GetMapping
-    public List<ComentarioResponseDTO> listaAll(Pageable pageable){
-        List<ComentarioResponseDTO> comentarios = new ArrayList<>();
-
-        for (Comentario comentario : service.findAll()) {
-            comentarios.add(mapper.toComentarioResponseDTO(comentario));
-        }
-
-        return comentarios;
+    public Page<ComentarioResponseDTO> listAll(Pageable pageable){
+        Page<Comentario> comentariosPage = service.findAll(pageable);
+        return comentariosPage.map(mapper::toComentarioResponseDTO);
     }
 
     @GetMapping("{id}")

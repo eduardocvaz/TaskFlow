@@ -2,7 +2,6 @@ package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +10,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.TarefaMapper;
 import ufrn.br.taskflow.model.Tarefa;
-import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.service.TarefaService;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/tarefas")
@@ -52,32 +48,15 @@ public class TarefaController {
     }
 
     @GetMapping
-    public List<TarefaResponseDTO> listaAll(){
-        List<TarefaResponseDTO> tarefas = new ArrayList<>();
-        for (Tarefa tarefa : service.findAll()) {
-            tarefas.add(mapper.toTarefaResponseDTO(tarefa));
-        }
-        return tarefas;
+    public Page<TarefaResponseDTO> listAll(Pageable pageable){
+        Page<Tarefa> tarefasPage = service.findAll(pageable);
+        return tarefasPage.map(mapper::toTarefaResponseDTO);
     }
-
-    /*
-    @GetMapping
-    public Page<TarefaResponseDTO> listAll(@RequestBody Pageable pageable){
-        List<TarefaResponseDTO> tarefas = new ArrayList<>();
-        for(Tarefa tarefa : service.findAll(pageable)){
-            tarefas.add(mapper.toTarefaResponseDTO(tarefa));
-        }
-        Page<TarefaResponseDTO> tarefasDto = new PageImpl<>(tarefas, pageable, tarefas.size());
-        return tarefasDto;
-    }
-    */
-    
 
     @GetMapping("{id}")
     public TarefaResponseDTO getById(@PathVariable Long id){
         Tarefa tarefaBuscada = service.findById(id);
-        TarefaResponseDTO tarefaResponseDTO = mapper.toTarefaResponseDTO(tarefaBuscada);
-        return tarefaResponseDTO;
+        return mapper.toTarefaResponseDTO(tarefaBuscada);
     }
 
     @DeleteMapping("{id}")
