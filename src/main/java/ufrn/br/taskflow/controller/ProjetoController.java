@@ -1,6 +1,7 @@
 package ufrn.br.taskflow.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +10,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.ProjetoMapper;
 import ufrn.br.taskflow.model.Projeto;
-import ufrn.br.taskflow.model.Tarefa;
 import ufrn.br.taskflow.service.ProjetoService;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/projetos")
@@ -52,14 +50,9 @@ public class ProjetoController {
     }
 
     @GetMapping
-    public List<ProjetoResponseDTO> listaAll(Pageable pageable){
-        List<ProjetoResponseDTO> projetos = new ArrayList<>();
-
-        for (Projeto projeto : service.findAll()) {
-            projetos.add(mapper.toProjetoResponseDTO(projeto));
-        }
-
-        return projetos;
+    public Page<ProjetoResponseDTO> listAll(Pageable pageable){
+        Page<Projeto> projetosPage = service.findAll(pageable);
+        return projetosPage.map(mapper::toProjetoResponseDTO);
     }
 
     @GetMapping("{id}")

@@ -14,7 +14,6 @@ import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.service.UsuarioService;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -52,8 +51,9 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public Page<Usuario> listaAll(Pageable pageable){
-        return service.findAll(pageable);
+    public Page<UsuarioResponseDTO> listaAll(Pageable pageable){
+        Page<Usuario> usuariosPage = service.findAll(pageable);
+        return usuariosPage.map(mapper::toUsuarioResponseDTO);
     }
 
     @GetMapping("{id}")
