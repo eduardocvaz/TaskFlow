@@ -4,12 +4,16 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import ufrn.br.taskflow.core.base.BaseModel;
 
 @Entity
 @Table(name = "usuario")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
+@SQLDelete(sql = "UPDATE usuario SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
+@Where(clause = "deleted_at is null")
 public class Usuario extends BaseModel {
     @Column
     @NotBlank(message = "O campo 'Nome' da entidade Usuario não pode ser vazio")

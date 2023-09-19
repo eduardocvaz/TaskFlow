@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import ufrn.br.taskflow.core.base.BaseModel;
 
 import java.util.Set;
@@ -15,7 +17,8 @@ import java.util.Set;
 @Table(name = "equipe")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-
+@SQLDelete(sql = "UPDATE equipe SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
+@Where(clause = "deleted_at is null")
 public class Equipe extends BaseModel {
     @Column
     @NotBlank(message = "O campo 'Nome' da entidade Equipe não pode ser vazio")
