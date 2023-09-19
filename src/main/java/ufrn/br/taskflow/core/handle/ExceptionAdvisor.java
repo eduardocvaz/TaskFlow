@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -36,6 +37,16 @@ public class ExceptionAdvisor extends ResponseStatusExceptionHandler {
 
         body.put("timestamp", LocalDateTime.now());
         body.put("message", "Erro ao acessar a URI");
+        body.put("error", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    ResponseEntity<Object> handleUsernameNotFoundException(UsernameNotFoundException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+
+        body.put("timestamp", LocalDateTime.now());
         body.put("error", ex.getMessage());
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);

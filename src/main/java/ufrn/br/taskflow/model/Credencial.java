@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Table(name = "credencial")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-@SQLDelete(sql = "UPDATE credencial_tbl SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
+@SQLDelete(sql = "UPDATE credencial SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
 @Where(clause = "deleted_at is null")
 @Builder
 public class Credencial extends BaseModel implements UserDetails{

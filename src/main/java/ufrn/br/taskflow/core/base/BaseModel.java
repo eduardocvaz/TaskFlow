@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 // Adicionar uma variavel ou algo para substituir pessoa_tbl
-@SQLDelete(sql = "UPDATE pessoa_tbl SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
-@Where(clause = "deleted_at is null")
+//@SQLDelete(sql = "UPDATE usuario SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
+//@Where(clause = "deleted_at is null")
 public class BaseModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
