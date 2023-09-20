@@ -5,12 +5,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.reflect.ParameterizedType;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public abstract class BaseService <Model extends BaseModel, Repository extends BaseRepository<Model>> {
