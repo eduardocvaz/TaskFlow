@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import ufrn.br.taskflow.core.base.BaseModel;
 
 import java.util.Date;
@@ -14,8 +12,6 @@ import java.util.Date;
 @Table(name = "comentario")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-@SQLDelete(sql = "UPDATE comentario SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
-@Where(clause = "deleted_at is null")
 public class Comentario extends BaseModel {
     @Column
     @NotBlank(message = "O campo 'Texto' da entidade Comentario não pode ser vazio")

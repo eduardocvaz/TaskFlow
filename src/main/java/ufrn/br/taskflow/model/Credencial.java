@@ -2,8 +2,6 @@ package ufrn.br.taskflow.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,8 +16,6 @@ import java.util.stream.Collectors;
 @Table(name = "credencial")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-@SQLDelete(sql = "UPDATE credencial SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
-@Where(clause = "deleted_at is null")
 @Builder
 public class Credencial extends BaseModel implements UserDetails{
 
