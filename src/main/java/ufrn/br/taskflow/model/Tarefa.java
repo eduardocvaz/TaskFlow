@@ -34,7 +34,7 @@ public class Tarefa extends BaseModel {
     @Column
     private Date dataConclusaoPrevista;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "projeto_id")
     private Projeto projeto;
 

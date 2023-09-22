@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import ufrn.br.taskflow.model.Usuario;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -74,4 +75,5 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
         repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Não encontrado!"));
         repository.deleteById(id);
     }
+
 }

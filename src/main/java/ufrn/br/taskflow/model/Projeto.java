@@ -38,7 +38,7 @@ public class Projeto extends BaseModel {
             inverseJoinColumns = {@JoinColumn(name = "equipe_id")})
     Set<Equipe> equipes;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "gerente_id")
     private Usuario gerente;
 
