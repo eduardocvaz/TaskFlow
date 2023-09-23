@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ufrn.br.taskflow.dto.FuncaoRequestDTO;
+import ufrn.br.taskflow.dto.FuncaoRequestUpdateDTO;
 import ufrn.br.taskflow.dto.FuncaoResponseDTO;
 import ufrn.br.taskflow.model.Funcao;
 
@@ -17,7 +18,17 @@ public class FuncaoMapper {
      * @param dto
      * @return funcao
      */
-    public Funcao toProjeto(FuncaoRequestDTO dto){
+    public Funcao toFuncao(FuncaoRequestDTO dto){
+        Funcao funcao = mapper.map(dto, Funcao.class);
+        return funcao;
+    }
+
+    /**
+     * Converte um FuncaoRequestUpdateDTO em Funcao
+     * @param dto
+     * @return funcao
+     */
+    public Funcao toFuncao(FuncaoRequestUpdateDTO dto){
         Funcao funcao = mapper.map(dto, Funcao.class);
         return funcao;
     }

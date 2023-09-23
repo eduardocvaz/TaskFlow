@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ufrn.br.taskflow.dto.ComentarioRequestDTO;
+import ufrn.br.taskflow.dto.ComentarioRequestUpdateDTO;
 import ufrn.br.taskflow.dto.ComentarioResponseDTO;
 import ufrn.br.taskflow.model.Comentario;
 
@@ -18,6 +19,16 @@ public class ComentarioMapper {
      * @return comentario
      */
     public Comentario toComentario(ComentarioRequestDTO dto){
+        Comentario comentario = mapper.map(dto, Comentario.class);
+        return comentario;
+    }
+
+    /**
+     * Converte um ComentarioRequestUpdateDTO em Comentario
+     * @param dto
+     * @return comentario
+     */
+    public Comentario toComentario(ComentarioRequestUpdateDTO dto){
         Comentario comentario = mapper.map(dto, Comentario.class);
         return comentario;
     }

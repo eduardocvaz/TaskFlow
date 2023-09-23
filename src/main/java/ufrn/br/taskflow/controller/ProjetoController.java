@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.ProjetoMapper;
 import ufrn.br.taskflow.model.Projeto;
+import ufrn.br.taskflow.model.Tarefa;
 import ufrn.br.taskflow.service.ProjetoService;
 
 import java.net.URI;
@@ -34,19 +35,22 @@ public class ProjetoController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        ProjetoResponseDTO responseDTO = mapper.toProjetoResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //ProjetoResponseDTO responseDTO = mapper.toProjetoResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Projeto p){
-        service.update(p);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody ProjetoRequestUpdateDTO dto){
+        Projeto projeto = mapper.toProjeto(dto);
+        service.update(projeto);
     }
 
     @PatchMapping
-    public Projeto patchUpdate(@RequestBody Projeto p){
-        return service.patchUpdate(p);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@RequestBody ProjetoRequestUpdateDTO dto){
+        Projeto projeto = mapper.toProjeto(dto);
+        service.patchUpdate(projeto);
     }
 
     @GetMapping
@@ -56,8 +60,11 @@ public class ProjetoController {
     }
 
     @GetMapping("{id}")
-    public Projeto getById(@PathVariable Long id){
-        return service.findById(id);
+    public ProjetoResponseDTO getById(@PathVariable Long id){
+        Projeto projeto = service.findById(id);
+        ProjetoResponseDTO responseDTO = mapper.toProjetoResponseDTO(projeto);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")

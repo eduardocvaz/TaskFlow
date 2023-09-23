@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ufrn.br.taskflow.dto.UsuarioRequestDTO;
+import ufrn.br.taskflow.dto.UsuarioRequestUpdateDTO;
 import ufrn.br.taskflow.dto.UsuarioResponseDTO;
 import ufrn.br.taskflow.model.Usuario;
 
@@ -18,6 +19,16 @@ public class UsuarioMapper {
      * @return usuario
      */
     public Usuario toUsuario(UsuarioRequestDTO dto){
+        Usuario usuario = mapper.map(dto, Usuario.class);
+        return usuario;
+    }
+
+    /**
+     * Converte um UsuarioRequesUpdatetDTO em Usuario
+     * @param dto
+     * @return usuario
+     */
+    public Usuario toUsuario(UsuarioRequestUpdateDTO dto){
         Usuario usuario = mapper.map(dto, Usuario.class);
         return usuario;
     }

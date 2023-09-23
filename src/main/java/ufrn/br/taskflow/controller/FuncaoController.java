@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.FuncaoMapper;
 import ufrn.br.taskflow.model.Funcao;
+import ufrn.br.taskflow.model.Projeto;
 import ufrn.br.taskflow.service.FuncaoService;
 
 import java.net.URI;
@@ -25,7 +26,7 @@ public class FuncaoController {
 
     @PostMapping
     public ResponseEntity<FuncaoResponseDTO> create(@RequestBody FuncaoRequestDTO dto){
-        Funcao funcao = mapper.toProjeto(dto);
+        Funcao funcao = mapper.toFuncao(dto);
         Funcao created = service.insert(funcao);
 
         URI location = ServletUriComponentsBuilder
@@ -34,19 +35,22 @@ public class FuncaoController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        FuncaoResponseDTO responseDTO = mapper.toFuncaoResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //FuncaoResponseDTO responseDTO = mapper.toFuncaoResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Funcao f){
-        service.update(f);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody FuncaoRequestUpdateDTO dto){
+        Funcao funcao = mapper.toFuncao(dto);
+        service.update(funcao);
     }
 
     @PatchMapping
-    public Funcao patchUpdate(@RequestBody Funcao f){
-        return service.patchUpdate(f);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@RequestBody FuncaoRequestUpdateDTO dto){
+        Funcao funcao = mapper.toFuncao(dto);
+        service.patchUpdate(funcao);
     }
 
     @GetMapping
@@ -56,8 +60,11 @@ public class FuncaoController {
     }
 
     @GetMapping("{id}")
-    public Funcao getById(@PathVariable Long id){
-        return service.findById(id);
+    public FuncaoResponseDTO getById(@PathVariable Long id){
+        Funcao funcao = service.findById(id);
+        FuncaoResponseDTO responseDTO = mapper.toFuncaoResponseDTO(funcao);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")

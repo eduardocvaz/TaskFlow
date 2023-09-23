@@ -8,9 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.ComentarioRequestDTO;
+import ufrn.br.taskflow.dto.ComentarioRequestUpdateDTO;
 import ufrn.br.taskflow.dto.ComentarioResponseDTO;
+import ufrn.br.taskflow.dto.EquipeResponseDTO;
 import ufrn.br.taskflow.mapper.ComentarioMapper;
 import ufrn.br.taskflow.model.Comentario;
+import ufrn.br.taskflow.model.Equipe;
 import ufrn.br.taskflow.service.ComentarioService;
 
 import java.net.URI;
@@ -34,19 +37,22 @@ public class ComentarioController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        ComentarioResponseDTO responseDTO = mapper.toComentarioResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //ComentarioResponseDTO responseDTO = mapper.toComentarioResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Comentario c){
-        service.update(c);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody ComentarioRequestUpdateDTO dto){
+        Comentario comentario = mapper.toComentario(dto);
+        service.update(comentario);
     }
 
     @PatchMapping
-    public Comentario patchUpdate(@RequestBody Comentario c){
-        return service.patchUpdate(c);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@RequestBody ComentarioRequestUpdateDTO dto){
+        Comentario comentario = mapper.toComentario(dto);
+        service.patchUpdate(comentario);
     }
 
     @GetMapping
@@ -56,8 +62,11 @@ public class ComentarioController {
     }
 
     @GetMapping("{id}")
-    public Comentario getById(@PathVariable Long id){
-        return service.findById(id);
+    public ComentarioResponseDTO getById(@PathVariable Long id){
+        Comentario comentario = service.findById(id);
+        ComentarioResponseDTO responseDTO = mapper.toComentarioResponseDTO(comentario);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")

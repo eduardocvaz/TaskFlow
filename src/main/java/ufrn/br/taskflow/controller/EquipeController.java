@@ -8,9 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.EquipeRequestDTO;
+import ufrn.br.taskflow.dto.EquipeRequestUpdateDTO;
 import ufrn.br.taskflow.dto.EquipeResponseDTO;
+import ufrn.br.taskflow.dto.FuncaoResponseDTO;
 import ufrn.br.taskflow.mapper.EquipeMapper;
 import ufrn.br.taskflow.model.Equipe;
+import ufrn.br.taskflow.model.Funcao;
 import ufrn.br.taskflow.service.EquipeService;
 
 import java.net.URI;
@@ -34,19 +37,22 @@ public class EquipeController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        EquipeResponseDTO responseDTO = mapper.toEquipeResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //EquipeResponseDTO responseDTO = mapper.toEquipeResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Equipe e){
-        service.update(e);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody EquipeRequestUpdateDTO dto){
+        Equipe equipe = mapper.toEquipe(dto);
+        service.update(equipe);
     }
 
     @PatchMapping
-    public Equipe patchUpdate(@RequestBody Equipe e){
-        return service.patchUpdate(e);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@RequestBody EquipeRequestUpdateDTO dto){
+        Equipe equipe = mapper.toEquipe(dto);
+        service.patchUpdate(equipe);
     }
 
     @GetMapping
@@ -56,8 +62,11 @@ public class EquipeController {
     }
 
     @GetMapping("{id}")
-    public Equipe getById(@PathVariable Long id){
-        return service.findById(id);
+    public EquipeResponseDTO getById(@PathVariable Long id){
+        Equipe equipe = service.findById(id);
+        EquipeResponseDTO responseDTO = mapper.toEquipeResponseDTO(equipe);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")

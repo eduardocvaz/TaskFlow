@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.TarefaMapper;
 import ufrn.br.taskflow.model.Tarefa;
+import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.service.TarefaService;
 
 import java.net.URI;
@@ -32,19 +33,22 @@ public class TarefaController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        TarefaResponseDTO responseDTO = mapper.toTarefaResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //TarefaResponseDTO responseDTO = mapper.toTarefaResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Tarefa t){
-        service.update(t);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody TarefaRequestUpdateDTO dto){
+        Tarefa tarefa = mapper.toTarefa(dto);
+        service.update(tarefa);
     }
 
     @PatchMapping
-    public Tarefa patchUpdate(@RequestBody Tarefa t){
-        return service.patchUpdate(t);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@RequestBody TarefaRequestUpdateDTO dto){
+        Tarefa tarefa = mapper.toTarefa(dto);
+        service.patchUpdate(tarefa);
     }
 
     @GetMapping
@@ -55,8 +59,10 @@ public class TarefaController {
 
     @GetMapping("{id}")
     public TarefaResponseDTO getById(@PathVariable Long id){
-        Tarefa tarefaBuscada = service.findById(id);
-        return mapper.toTarefaResponseDTO(tarefaBuscada);
+        Tarefa tarefa = service.findById(id);
+        TarefaResponseDTO responseDTO = mapper.toTarefaResponseDTO(tarefa);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")
