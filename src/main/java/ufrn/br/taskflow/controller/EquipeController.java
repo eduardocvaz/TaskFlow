@@ -8,12 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.EquipeRequestDTO;
-import ufrn.br.taskflow.dto.EquipeRequestUpdateDTO;
 import ufrn.br.taskflow.dto.EquipeResponseDTO;
-import ufrn.br.taskflow.dto.FuncaoResponseDTO;
 import ufrn.br.taskflow.mapper.EquipeMapper;
 import ufrn.br.taskflow.model.Equipe;
-import ufrn.br.taskflow.model.Funcao;
 import ufrn.br.taskflow.service.EquipeService;
 
 import java.net.URI;
@@ -41,17 +38,19 @@ public class EquipeController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody EquipeRequestUpdateDTO dto){
+    public void update(@PathVariable Long id, @RequestBody EquipeRequestDTO dto){
         Equipe equipe = mapper.toEquipe(dto);
+        equipe.setId(id);
         service.update(equipe);
     }
 
-    @PatchMapping
+    @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void patchUpdate(@RequestBody EquipeRequestUpdateDTO dto){
+    public void patchUpdate(@PathVariable Long id, @RequestBody EquipeRequestDTO dto){
         Equipe equipe = mapper.toEquipe(dto);
+        equipe.setId(id);
         service.patchUpdate(equipe);
     }
 

@@ -10,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.ProjetoMapper;
 import ufrn.br.taskflow.model.Projeto;
-import ufrn.br.taskflow.model.Tarefa;
 import ufrn.br.taskflow.service.ProjetoService;
 
 import java.net.URI;
@@ -39,17 +38,19 @@ public class ProjetoController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody ProjetoRequestUpdateDTO dto){
+    public void update(@PathVariable Long id, @RequestBody ProjetoRequestDTO dto){
         Projeto projeto = mapper.toProjeto(dto);
+        projeto.setId(id);
         service.update(projeto);
     }
 
-    @PatchMapping
+    @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void patchUpdate(@RequestBody ProjetoRequestUpdateDTO dto){
+    public void patchUpdate(@PathVariable Long id, @RequestBody ProjetoRequestDTO dto){
         Projeto projeto = mapper.toProjeto(dto);
+        projeto.setId(id);
         service.patchUpdate(projeto);
     }
 

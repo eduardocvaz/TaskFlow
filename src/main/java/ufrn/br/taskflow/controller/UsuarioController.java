@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ufrn.br.taskflow.dto.UsuarioRequestUpdateDTO;
 import ufrn.br.taskflow.mapper.UsuarioMapper;
 import ufrn.br.taskflow.dto.UsuarioRequestDTO;
 import ufrn.br.taskflow.dto.UsuarioResponseDTO;
@@ -40,17 +39,19 @@ public class UsuarioController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody UsuarioRequestUpdateDTO dto){
+    public void update(@PathVariable Long id, @RequestBody UsuarioRequestDTO dto){
         Usuario usuario = mapper.toUsuario(dto);
+        usuario.setId(id);
         service.update(usuario);
     }
 
-    @PatchMapping
+    @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void patchUpdate(@RequestBody UsuarioRequestUpdateDTO dto){
+    public void patchUpdate(@PathVariable Long id, @RequestBody UsuarioRequestDTO dto){
         Usuario usuario = mapper.toUsuario(dto);
+        usuario.setId(id);
         service.patchUpdate(usuario);
     }
 

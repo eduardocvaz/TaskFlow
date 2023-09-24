@@ -8,12 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.ComentarioRequestDTO;
-import ufrn.br.taskflow.dto.ComentarioRequestUpdateDTO;
 import ufrn.br.taskflow.dto.ComentarioResponseDTO;
-import ufrn.br.taskflow.dto.EquipeResponseDTO;
 import ufrn.br.taskflow.mapper.ComentarioMapper;
 import ufrn.br.taskflow.model.Comentario;
-import ufrn.br.taskflow.model.Equipe;
 import ufrn.br.taskflow.service.ComentarioService;
 
 import java.net.URI;
@@ -41,17 +38,19 @@ public class ComentarioController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody ComentarioRequestUpdateDTO dto){
+    public void update(@PathVariable Long id, @RequestBody ComentarioRequestDTO dto){
         Comentario comentario = mapper.toComentario(dto);
+        comentario.setId(id);
         service.update(comentario);
     }
 
-    @PatchMapping
+    @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void patchUpdate(@RequestBody ComentarioRequestUpdateDTO dto){
+    public void patchUpdate(@PathVariable Long id, @RequestBody ComentarioRequestDTO dto){
         Comentario comentario = mapper.toComentario(dto);
+        comentario.setId(id);
         service.patchUpdate(comentario);
     }
 

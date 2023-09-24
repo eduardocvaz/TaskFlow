@@ -10,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.TarefaMapper;
 import ufrn.br.taskflow.model.Tarefa;
-import ufrn.br.taskflow.model.Usuario;
 import ufrn.br.taskflow.service.TarefaService;
 
 import java.net.URI;
@@ -37,17 +36,19 @@ public class TarefaController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody TarefaRequestUpdateDTO dto){
+    public void update(@PathVariable Long id, @RequestBody TarefaRequestDTO dto){
         Tarefa tarefa = mapper.toTarefa(dto);
+        tarefa.setId(id);
         service.update(tarefa);
     }
 
-    @PatchMapping
+    @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void patchUpdate(@RequestBody TarefaRequestUpdateDTO dto){
+    public void patchUpdate(@PathVariable Long id, @RequestBody TarefaRequestDTO dto){
         Tarefa tarefa = mapper.toTarefa(dto);
+        tarefa.setId(id);
         service.patchUpdate(tarefa);
     }
 

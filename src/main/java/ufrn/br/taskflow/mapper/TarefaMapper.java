@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ufrn.br.taskflow.dto.TarefaRequestDTO;
-import ufrn.br.taskflow.dto.TarefaRequestUpdateDTO;
 import ufrn.br.taskflow.dto.TarefaResponseDTO;
 import ufrn.br.taskflow.model.Tarefa;
 
@@ -23,15 +22,6 @@ public class TarefaMapper {
         return tarefa;
     }
 
-    /**
-     * Converte um TarefaRequestUpdateDTO em Tarefa
-     * @param dto
-     * @return tarefa
-     */
-    public Tarefa toTarefa(TarefaRequestUpdateDTO dto){
-        Tarefa tarefa = mapper.map(dto, Tarefa.class);
-        return tarefa;
-    }
 
     /**
      * Converte um Tarefa em TarefaResponseDTO

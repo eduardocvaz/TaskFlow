@@ -1,14 +1,10 @@
 package ufrn.br.taskflow.service;
 
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ufrn.br.taskflow.core.base.BaseService;
-import ufrn.br.taskflow.dto.TarefaResponseDTO;
 import ufrn.br.taskflow.model.Tarefa;
 import ufrn.br.taskflow.repository.TarefaRepository;
 

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ufrn.br.taskflow.dto.ProjetoRequestDTO;
-import ufrn.br.taskflow.dto.ProjetoRequestUpdateDTO;
 import ufrn.br.taskflow.dto.ProjetoResponseDTO;
 import ufrn.br.taskflow.model.Projeto;
 
@@ -23,15 +22,6 @@ public class ProjetoMapper {
         return projeto;
     }
 
-    /**
-     * Converte um ProjetoRequestUpdateDTO em Projeto
-     * @param dto
-     * @return projeto
-     */
-    public Projeto toProjeto(ProjetoRequestUpdateDTO dto){
-        Projeto projeto = mapper.map(dto, Projeto.class);
-        return projeto;
-    }
 
     /**
      * Converte um Projeto em ProjetoResponseDTO

@@ -10,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.taskflow.dto.*;
 import ufrn.br.taskflow.mapper.FuncaoMapper;
 import ufrn.br.taskflow.model.Funcao;
-import ufrn.br.taskflow.model.Projeto;
 import ufrn.br.taskflow.service.FuncaoService;
 
 import java.net.URI;
@@ -39,17 +38,19 @@ public class FuncaoController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody FuncaoRequestUpdateDTO dto){
+    public void update(@PathVariable Long id, @RequestBody FuncaoRequestDTO dto){
         Funcao funcao = mapper.toFuncao(dto);
+        funcao.setId(id);
         service.update(funcao);
     }
 
-    @PatchMapping
+    @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void patchUpdate(@RequestBody FuncaoRequestUpdateDTO dto){
+    public void patchUpdate(@PathVariable Long id, @RequestBody FuncaoRequestDTO dto){
         Funcao funcao = mapper.toFuncao(dto);
+        funcao.setId(id);
         service.patchUpdate(funcao);
     }
 
