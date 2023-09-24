@@ -34,19 +34,24 @@ public class ProjetoController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        ProjetoResponseDTO responseDTO = mapper.toProjetoResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //ProjetoResponseDTO responseDTO = mapper.toProjetoResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Projeto p){
-        service.update(p);
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id, @RequestBody ProjetoRequestDTO dto){
+        Projeto projeto = mapper.toProjeto(dto);
+        projeto.setId(id);
+        service.update(projeto);
     }
 
-    @PatchMapping
-    public Projeto patchUpdate(@RequestBody Projeto p){
-        return service.patchUpdate(p);
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@PathVariable Long id, @RequestBody ProjetoRequestDTO dto){
+        Projeto projeto = mapper.toProjeto(dto);
+        projeto.setId(id);
+        service.patchUpdate(projeto);
     }
 
     @GetMapping
@@ -56,8 +61,11 @@ public class ProjetoController {
     }
 
     @GetMapping("{id}")
-    public Projeto getById(@PathVariable Long id){
-        return service.findById(id);
+    public ProjetoResponseDTO getById(@PathVariable Long id){
+        Projeto projeto = service.findById(id);
+        ProjetoResponseDTO responseDTO = mapper.toProjetoResponseDTO(projeto);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")

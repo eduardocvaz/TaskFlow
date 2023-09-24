@@ -17,7 +17,7 @@ public class FuncaoMapper {
      * @param dto
      * @return funcao
      */
-    public Funcao toProjeto(FuncaoRequestDTO dto){
+    public Funcao toFuncao(FuncaoRequestDTO dto){
         Funcao funcao = mapper.map(dto, Funcao.class);
         return funcao;
     }

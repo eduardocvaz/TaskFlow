@@ -22,6 +22,7 @@ public class UsuarioMapper {
         return usuario;
     }
 
+
     /**
      * Converte um Usuario em UsuarioResponseDTO
      * @param created

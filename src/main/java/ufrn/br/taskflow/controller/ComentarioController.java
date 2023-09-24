@@ -34,19 +34,24 @@ public class ComentarioController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        ComentarioResponseDTO responseDTO = mapper.toComentarioResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //ComentarioResponseDTO responseDTO = mapper.toComentarioResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Comentario c){
-        service.update(c);
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id, @RequestBody ComentarioRequestDTO dto){
+        Comentario comentario = mapper.toComentario(dto);
+        comentario.setId(id);
+        service.update(comentario);
     }
 
-    @PatchMapping
-    public Comentario patchUpdate(@RequestBody Comentario c){
-        return service.patchUpdate(c);
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@PathVariable Long id, @RequestBody ComentarioRequestDTO dto){
+        Comentario comentario = mapper.toComentario(dto);
+        comentario.setId(id);
+        service.patchUpdate(comentario);
     }
 
     @GetMapping
@@ -56,8 +61,11 @@ public class ComentarioController {
     }
 
     @GetMapping("{id}")
-    public Comentario getById(@PathVariable Long id){
-        return service.findById(id);
+    public ComentarioResponseDTO getById(@PathVariable Long id){
+        Comentario comentario = service.findById(id);
+        ComentarioResponseDTO responseDTO = mapper.toComentarioResponseDTO(comentario);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")

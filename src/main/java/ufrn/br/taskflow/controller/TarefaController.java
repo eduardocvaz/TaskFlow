@@ -32,19 +32,24 @@ public class TarefaController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        TarefaResponseDTO responseDTO = mapper.toTarefaResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //TarefaResponseDTO responseDTO = mapper.toTarefaResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Tarefa t){
-        service.update(t);
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id, @RequestBody TarefaRequestDTO dto){
+        Tarefa tarefa = mapper.toTarefa(dto);
+        tarefa.setId(id);
+        service.update(tarefa);
     }
 
-    @PatchMapping
-    public Tarefa patchUpdate(@RequestBody Tarefa t){
-        return service.patchUpdate(t);
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@PathVariable Long id, @RequestBody TarefaRequestDTO dto){
+        Tarefa tarefa = mapper.toTarefa(dto);
+        tarefa.setId(id);
+        service.patchUpdate(tarefa);
     }
 
     @GetMapping
@@ -55,8 +60,10 @@ public class TarefaController {
 
     @GetMapping("{id}")
     public TarefaResponseDTO getById(@PathVariable Long id){
-        Tarefa tarefaBuscada = service.findById(id);
-        return mapper.toTarefaResponseDTO(tarefaBuscada);
+        Tarefa tarefa = service.findById(id);
+        TarefaResponseDTO responseDTO = mapper.toTarefaResponseDTO(tarefa);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")

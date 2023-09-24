@@ -74,4 +74,5 @@ public abstract class BaseService <Model extends BaseModel, Repository extends B
         repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Não encontrado!"));
         repository.deleteById(id);
     }
+
 }

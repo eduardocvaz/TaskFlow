@@ -35,19 +35,24 @@ public class UsuarioController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        UsuarioResponseDTO responseDTO = mapper.toUsuarioResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //UsuarioResponseDTO responseDTO = mapper.toUsuarioResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Usuario u){
-        service.update(u);
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id, @RequestBody UsuarioRequestDTO dto){
+        Usuario usuario = mapper.toUsuario(dto);
+        usuario.setId(id);
+        service.update(usuario);
     }
 
-    @PatchMapping
-    public Usuario patchUpdate(@RequestBody Usuario u){
-        return service.patchUpdate(u);
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@PathVariable Long id, @RequestBody UsuarioRequestDTO dto){
+        Usuario usuario = mapper.toUsuario(dto);
+        usuario.setId(id);
+        service.patchUpdate(usuario);
     }
 
     @GetMapping
@@ -57,8 +62,12 @@ public class UsuarioController {
     }
 
     @GetMapping("{id}")
-    public Usuario getById(@PathVariable Long id){
-        return service.findById(id);
+    public UsuarioResponseDTO getById(@PathVariable Long id){
+        Usuario usuario = service.findById(id);
+        UsuarioResponseDTO responseDTO = mapper.toUsuarioResponseDTO(usuario);
+
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")

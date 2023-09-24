@@ -25,7 +25,7 @@ public class FuncaoController {
 
     @PostMapping
     public ResponseEntity<FuncaoResponseDTO> create(@RequestBody FuncaoRequestDTO dto){
-        Funcao funcao = mapper.toProjeto(dto);
+        Funcao funcao = mapper.toFuncao(dto);
         Funcao created = service.insert(funcao);
 
         URI location = ServletUriComponentsBuilder
@@ -34,19 +34,24 @@ public class FuncaoController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        FuncaoResponseDTO responseDTO = mapper.toFuncaoResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //FuncaoResponseDTO responseDTO = mapper.toFuncaoResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Funcao f){
-        service.update(f);
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id, @RequestBody FuncaoRequestDTO dto){
+        Funcao funcao = mapper.toFuncao(dto);
+        funcao.setId(id);
+        service.update(funcao);
     }
 
-    @PatchMapping
-    public Funcao patchUpdate(@RequestBody Funcao f){
-        return service.patchUpdate(f);
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@PathVariable Long id, @RequestBody FuncaoRequestDTO dto){
+        Funcao funcao = mapper.toFuncao(dto);
+        funcao.setId(id);
+        service.patchUpdate(funcao);
     }
 
     @GetMapping
@@ -56,8 +61,11 @@ public class FuncaoController {
     }
 
     @GetMapping("{id}")
-    public Funcao getById(@PathVariable Long id){
-        return service.findById(id);
+    public FuncaoResponseDTO getById(@PathVariable Long id){
+        Funcao funcao = service.findById(id);
+        FuncaoResponseDTO responseDTO = mapper.toFuncaoResponseDTO(funcao);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")

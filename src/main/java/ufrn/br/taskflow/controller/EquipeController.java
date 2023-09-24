@@ -34,19 +34,24 @@ public class EquipeController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        EquipeResponseDTO responseDTO = mapper.toEquipeResponseDTO(created);
-        return ResponseEntity.created(location).body(responseDTO);
+        //EquipeResponseDTO responseDTO = mapper.toEquipeResponseDTO(created);
+        return ResponseEntity.created(location).build();
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody Equipe e){
-        service.update(e);
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id, @RequestBody EquipeRequestDTO dto){
+        Equipe equipe = mapper.toEquipe(dto);
+        equipe.setId(id);
+        service.update(equipe);
     }
 
-    @PatchMapping
-    public Equipe patchUpdate(@RequestBody Equipe e){
-        return service.patchUpdate(e);
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patchUpdate(@PathVariable Long id, @RequestBody EquipeRequestDTO dto){
+        Equipe equipe = mapper.toEquipe(dto);
+        equipe.setId(id);
+        service.patchUpdate(equipe);
     }
 
     @GetMapping
@@ -56,8 +61,11 @@ public class EquipeController {
     }
 
     @GetMapping("{id}")
-    public Equipe getById(@PathVariable Long id){
-        return service.findById(id);
+    public EquipeResponseDTO getById(@PathVariable Long id){
+        Equipe equipe = service.findById(id);
+        EquipeResponseDTO responseDTO = mapper.toEquipeResponseDTO(equipe);
+        responseDTO.addLinks();
+        return responseDTO;
     }
 
     @DeleteMapping("{id}")
